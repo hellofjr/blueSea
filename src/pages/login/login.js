@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Input, Button, Row, Col, Form, Icon, Checkbox } from 'antd';
+import UserController from '../../service/usercontroller';
 
 class Login extends React.Component {
     constructor(props) {
@@ -15,7 +16,11 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                // console.log('Received values of form: ', values);
+                // this.props.history.push('/home');
+                UserController.checkUserValid(values.userName).then((res)=>{
+                    console.log(res);
+                })
             }
         });
     }
