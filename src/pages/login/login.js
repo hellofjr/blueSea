@@ -1,28 +1,43 @@
 import React from 'react';
 
-import { Input, Button, Row, Col, Form, Icon, Checkbox } from 'antd';
+import { Input, Button, Row, Col, Form, Icon, Checkbox, message } from 'antd';
 import UserController from '../../service/usercontroller';
 
 class Login extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            userName: '',
-            password: '',
-        }
+            
+        };
     }
+
+    success = () => {
+        message.success('登录成功!');
+    };
+
+    error = () => {
+        message.error('密码错误!');
+    };
 
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
-                // this.props.history.push('/home');
-                UserController.checkUserValid(values.userName).then((res)=>{
+                UserController.checkUserValid(values.userName, values.password).then((res) => {
                     console.log(res);
+                    if (res && res.length == 1) {
+                        this.success();
+                        this.props.history.push('/home');
+                    } else {
+                        this.error();
+                    }
                 })
             }
         });
+    }
+
+    handleGoRegister = () => {
+        this.props.history.push('/register');
     }
 
     render() {
@@ -40,7 +55,7 @@ class Login extends React.Component {
             width: '100%'
         }
         return (
-            <Form onSubmit={this.handleSubmit} style={loginForm}>
+            <Form onSubmit={this.handleSubmit} style={loginForm} >
                 <Form.Item>
                     {getFieldDecorator('userName', {
                         rules: [{ required: true, message: 'Please input your username!' }],
@@ -65,8 +80,8 @@ class Login extends React.Component {
                     <a style={forgotBtn} href="">Forgot password</a>
                     <Button type="primary" htmlType="submit" style={formBtn}>
                         Log in
-              </Button>
-                    Or <a href="">register now!</a>
+              </Button >
+                    Or <a onClick={this.handleGoRegister.bind(this)}>register now!</a>
                 </Form.Item>
             </Form>
         );

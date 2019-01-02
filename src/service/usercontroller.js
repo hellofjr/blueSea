@@ -1,12 +1,21 @@
-import { checkUserValid } from '../config';
+import { checkUserValid, registerUser } from '../config';
 import HttpUtils from './httpcontroller';
 import { Component } from 'react';
 
 export default class UserController extends Component {
-    static checkUserValid = (name) => {
+    static checkUserValid = (name, password) => {
         let param = {
-            name: name
+            name: name,
+            password: password
         }
-        return HttpUtils.getRequest(checkUserValid, param);
+        return HttpUtils.postRequrst(checkUserValid, param);
+    }
+
+    static registerUser = (name, password) => {
+        let param = {
+            name: name,
+            password: password
+        }
+        return HttpUtils.postRequrst(registerUser, param);
     }
 }
