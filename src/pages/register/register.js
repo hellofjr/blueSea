@@ -18,6 +18,7 @@ class Register extends React.Component {
                 UserController.registerUser(values.userName, values.password).then((res) => {
                     if (res && res.length == 1) {
                         alert('注册成功!');
+                        this.props.history.goBack();
                     } else {
                         alert('注册失败!');
                     }

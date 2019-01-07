@@ -23,7 +23,7 @@ class Login extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                UserController.checkUserValid(values.userName, values.password).then((res) => {
+                UserController.checkUserValid(values.userName).then((res) => {
                     console.log(res);
                     if (res && res.length == 1) {
                         this.success();

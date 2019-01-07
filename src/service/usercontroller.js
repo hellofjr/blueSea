@@ -3,12 +3,11 @@ import HttpUtils from './httpcontroller';
 import { Component } from 'react';
 
 export default class UserController extends Component {
-    static checkUserValid = (name, password) => {
+    static checkUserValid = (name) => {
         let param = {
             name: name,
-            password: password
         }
-        return HttpUtils.postRequrst(checkUserValid, param);
+        return HttpUtils.getRequest(checkUserValid, param);
     }
 
     static registerUser = (name, password) => {

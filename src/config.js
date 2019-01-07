@@ -1,8 +1,13 @@
-const DEV = "http://localhost:2000";
+const ENV = {
+    DEV : 'http://localhost:2000',
+    fjr_public : 'http://212.64.56.157:2000'
+}
 
-const checkUserValid = DEV + '/getdata';
+const UsingEnv = ENV.DEV;
 
-const registerUser = DEV + '/add';
+const checkUserValid = UsingEnv + '/users/userValid';
+
+const registerUser = UsingEnv + '/users/add';
 
 
 export { checkUserValid, registerUser }
